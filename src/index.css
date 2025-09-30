@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --bg: #000000;
+    --accent: #b30000;
+    --card: #1f1f1f;
+  }
+  html {
+    font-family: theme('fontFamily.inter');
+    background-color: var(--bg);
+    color: white;
+  }
+  body {
+    @apply min-h-screen antialiased;
+    background: radial-gradient(1200px 600px at 50% -20%, rgba(179,0,0,0.12), transparent 60%), #000;
+  }
+}
+
+/* Subtle film grain + scanlines */
+.bg-noise {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    rgba(255,255,255,0.03) 0px,
+    rgba(255,255,255,0.03) 1px,
+    transparent 1px,
+    transparent 2px
+  );
+  mix-blend-mode: overlay;
+}
+
