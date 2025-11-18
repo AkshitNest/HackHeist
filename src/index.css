@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Inter:wght@400;500;600;700;800;900&family=Bruno Ace SC:wght@400;500;600;700;800;900&family=Oxanium:wght@400;500;600;700;800;900&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -9,13 +11,20 @@
     --card: #1f1f1f;
   }
   html {
-    font-family: theme('fontFamily.inter');
+    font-family: 'Inter', 'Roboto', system-ui, -apple-system, sans-serif;
     background-color: var(--bg);
     color: white;
   }
   body {
     @apply min-h-screen antialiased;
     background: radial-gradient(1200px 600px at 50% -20%, rgba(179,0,0,0.12), transparent 60%), #000;
+  }
+  
+  /* Google-style fonts - Inter for display, Roboto for body */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Inter', 'Roboto', sans-serif;
+    font-weight: 800;
+    letter-spacing: -0.03em;
   }
 }
 

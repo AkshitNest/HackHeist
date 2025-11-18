@@ -3,6 +3,8 @@ import Hero from '../components/Hero'
 import Timeline from '../components/Timeline'
 import FAQ from '../components/FAQ'
 import Footer from '../components/Footer'
+import Mask from '../components/Mask'
+import Countdown from '../components/Countdown'
 
 import { motion } from 'framer-motion'
 
@@ -38,10 +40,17 @@ function SectionShell({ id, title, subtitle, children }){
 
 export default function Landing(){
   return (
-    <div className="bg-black text-white">
+    <div className="bg-black text-white relative">
       <Navbar />
+      <Mask />
       <main>
         <Hero />
+        
+        {/* Countdown Section - Moved below Hero */}
+        <section className="container my-16">
+          <Countdown target={new Date('2025-03-29T09:00:00+05:30').getTime()} />
+        </section>
+
         <SectionShell id="about" title="About" subtitle="Add your organization blurb here." >
           <div className="grid md:grid-cols-2 gap-6">
             <div className="rounded-2xl bg-muted-gray/80 border border-white/10 h-56" />
