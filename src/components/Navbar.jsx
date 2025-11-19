@@ -1,84 +1,354 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
+import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
 
 function MaskLogo({ className = 'w-8 h-8' }) {
   return (
-    <div className={`relative ${className}`} aria-hidden>
-      <div className="absolute inset-0 rounded-full bg-heist-red/80 blur"></div>
-      <div className="absolute inset-[3px] rounded-full bg-black border border-white/10"></div>
-      <div className="absolute inset-0 grid place-items-center text-white font-black text-xs">HH</div>
-    </div>
+    <motion.div
+      className={`relative ${className}`}
+      aria-hidden
+      whileHover={{ scale: 1.15, rotate: [0, -5, 5, 0] }}
+      transition={{ type: 'spring', stiffness: 500, damping: 20 }}
+    >
+      <motion.div
+        className="absolute inset-0 rounded-full bg-heist-red/40 blur-md"
+        animate={{
+          scale: [1, 1.3, 1],
+          opacity: [0.4, 0.6, 0.4]
+        }}
+        transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+      />
+      <motion.img
+        src="/src/assets/brand/mask-logo.PNG"
+        alt="Hack Heist Logo"
+        className="relative z-10 w-full h-full object-contain"
+        animate={{
+          filter: [
+            'drop-shadow(0 0 4px rgba(179,0,0,0.5))',
+            'drop-shadow(0 0 8px rgba(179,0,0,0.8))',
+            'drop-shadow(0 0 4px rgba(179,0,0,0.5))'
+          ]
+        }}
+        transition={{ duration: 2, repeat: Infinity }}
+      />
+    </motion.div>
   )
 }
 
-export default function Navbar(){
+const navLinks = [
+  { href: '#about', label: 'About' },
+  { href: '#prizes', label: 'Loot' },
+  { href: '#partners', label: 'Partners' },
+  { href: '#tracks', label: 'Tracks' },
+  { href: '#past', label: 'Past Heists' },
+  { href: '#team', label: 'Our Team' },
+  { href: '#join', label: 'Join Us' }
+]
+
+function NavigationLink({ href, label, index }) {
+  const [isHovered, setIsHovered] = useState(false)
+
+  return (
+    <motion.a
+      href={href}
+      initial={{ opacity: 0, y: -10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.6 + index * 0.05, duration: 0.3 }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      className="relative text-sm font-semibold text-gray-300 hover:text-white px-3.5 py-2.5 rounded-full transition-colors overflow-hidden group"
+      style={{ fontFamily: 'Chakra Petch, sans-serif', letterSpacing: '0.02em' }}
+    >
+      {/* Border glow */}
+      <motion.span
+        className="absolute inset-0 rounded-full border border-heist-red/50"
+        initial={{ scale: 0, opacity: 0 }}
+        animate={{
+          scale: isHovered ? 1 : 0,
+          opacity: isHovered ? 1 : 0
+        }}
+        transition={{ type: 'spring', stiffness: 400, damping: 25 }}
+      />
+
+      {/* Hover background */}
+      <motion.span
+        className="absolute inset-0 bg-gradient-to-r from-heist-red/20 via-heist-red/35 to-heist-red/20 rounded-full"
+        initial={{ scale: 0, opacity: 0 }}
+        animate={{
+          scale: isHovered ? 1 : 0,
+          opacity: isHovered ? 1 : 0
+        }}
+        transition={{ type: 'spring', stiffness: 400, damping: 25 }}
+      />
+
+      {/* Glow effect */}
+      <motion.span
+        className="absolute inset-0 bg-heist-red/20 rounded-full blur-md"
+        initial={{ scale: 0, opacity: 0 }}
+        animate={{
+          scale: isHovered ? 1.8 : 0,
+          opacity: isHovered ? 0.4 : 0
+        }}
+        transition={{ duration: 0.3 }}
+      />
+
+      <span className="relative z-10">{label}</span>
+    </motion.a>
+  )
+}
+
+function MobileNavLink({ href, label, onClick, index }) {
+  return (
+    <motion.a
+      href={href}
+      onClick={onClick}
+      initial={{ opacity: 0, x: 30 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ delay: index * 0.05, duration: 0.3 }}
+      whileHover={{ x: 5, backgroundColor: 'rgba(255, 255, 255, 0.1)' }}
+      whileTap={{ scale: 0.98 }}
+      className="block rounded-2xl px-4 py-3 text-gray-200 hover:text-white transition-colors font-medium"
+      style={{ fontFamily: 'Chakra Petch, sans-serif', letterSpacing: '0.02em' }}
+    >
+      <span className="flex items-center gap-3">
+        <motion.span
+          className="w-1.5 h-1.5 rounded-full bg-heist-red"
+          initial={{ scale: 0 }}
+          whileHover={{ scale: 1.5 }}
+          transition={{ type: 'spring', stiffness: 500 }}
+        />
+        {label}
+      </span>
+    </motion.a>
+  )
+}
+
+export default function Navbar() {
   const [open, setOpen] = useState(false)
+  const [isHovered, setIsHovered] = useState(false)
   const panelRef = useRef(null)
   const location = useLocation()
 
   useEffect(() => { setOpen(false) }, [location.pathname])
 
   useEffect(() => {
-    function onKey(e){ if(e.key === 'Escape') setOpen(false) }
+    function onKey(e) { if (e.key === 'Escape') setOpen(false) }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
   }, [])
 
   return (
-    <header className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-7xl">
-      <nav 
-        className="bg-black/40 backdrop-blur-2xl rounded-full shadow-2xl border border-white/10 px-6 py-3 transition-all duration-300 hover:shadow-[0_8px_32px_rgba(179,0,0,0.3)]"
-        style={{
-          boxShadow: '0 8px 32px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.1)',
-        }}
-        aria-label="Global"
-      >
-        <div className="flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-2 text-white font-semibold hover:opacity-90 transition-opacity">
-            <MaskLogo />
-            <span className="tracking-tight text-lg font-bold" style={{ fontFamily: "'Inter', 'Roboto', sans-serif" }}>Hack Heist Season 2</span>
-          </Link>
-          <div className="hidden md:flex items-center gap-1">
-            <a href="#about" className="text-sm text-gray-300 hover:text-white hover:bg-white/10 px-4 py-2 rounded-full transition-all">About</a>
-            <a href="#prizes" className="text-sm text-gray-300 hover:text-white hover:bg-white/10 px-4 py-2 rounded-full transition-all">Loot</a>
-            <a href="#partners" className="text-sm text-gray-300 hover:text-white hover:bg-white/10 px-4 py-2 rounded-full transition-all">Partners</a>
-            <a href="#tracks" className="text-sm text-gray-300 hover:text-white hover:bg-white/10 px-4 py-2 rounded-full transition-all">Tracks</a>
-            <a href="#past" className="text-sm text-gray-300 hover:text-white hover:bg-white/10 px-4 py-2 rounded-full transition-all">Past Heists</a>
-            <a href="#team" className="text-sm text-gray-300 hover:text-white hover:bg-white/10 px-4 py-2 rounded-full transition-all">Our Team</a>
-            <a href="#join" className="text-sm text-gray-300 hover:text-white hover:bg-white/10 px-4 py-2 rounded-full transition-all">Join Us</a>
-            <Link 
-              to="/register" 
-              className="ml-2 inline-flex items-center rounded-full bg-heist-red text-white px-5 py-2 text-sm font-semibold shadow-lg hover:shadow-xl hover:bg-red-700 transition-all duration-300 hover:scale-105"
-            >
-              Register
+    <motion.header
+      className="fixed top-4 left-0 right-0 z-50 px-4"
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, ease: 'easeOut' }}
+    >
+      <div className="max-w-7xl mx-auto">
+        <motion.nav
+          initial={{ width: 0, opacity: 0 }}
+          animate={{ width: 'auto', opacity: 1 }}
+          transition={{
+            duration: 0.8,
+            ease: [0.34, 1.56, 0.64, 1],
+            delay: 0.2,
+          }}
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+          className="relative bg-black/40 backdrop-blur-2xl rounded-full
+      border border-white/10 px-6 sm:px-8 py-1.5 overflow-hidden w-full"
+          aria-label="Global"
+          style={{
+            boxShadow:
+              '0 8px 32px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.1)',
+          }}
+        >
+          {/* Animated background gradient */}
+          <motion.div
+            className="absolute inset-0 bg-gradient-to-r from-heist-red/0 via-heist-red/10 to-heist-red/0"
+            animate={{
+              x: isHovered ? ['0%', '100%'] : '0%',
+            }}
+            transition={{
+              duration: 2,
+              ease: 'linear',
+              repeat: isHovered ? Infinity : 0,
+            }}
+          />
+
+          {/* Glow effect on hover */}
+          <motion.div
+            className="absolute inset-0 rounded-full"
+            animate={{
+              boxShadow: isHovered
+                ? '0 0 30px rgba(179, 0, 0, 0.4), 0 8px 32px rgba(0, 0, 0, 0.6)'
+                : '0 8px 32px rgba(0, 0, 0, 0.6)'
+            }}
+            transition={{ duration: 0.3 }}
+          />
+
+          <div className="relative flex items-center">
+            <Link to="/" className="flex items-center gap-2 sm:gap-3 text-white font-semibold group">
+              <MaskLogo className="w-7 h-7 sm:w-8 sm:h-8" />
+              <motion.span
+                className="text-base sm:text-lg font-normal hidden sm:block whitespace-nowrap"
+                style={{ fontFamily: 'Bruno Ace, cursive', letterSpacing: '0.02em' }}
+                whileHover={{
+                  scale: 1.05,
+                  textShadow: '0 0 8px rgba(179, 0, 0, 0.6)'
+                }}
+                transition={{ type: 'spring', stiffness: 400, damping: 15 }}
+              >
+                {['H', 'a', 'c', 'k', ' ', 'H', 'e', 'i', 's', 't'].map((letter, i) => (
+                  <motion.span
+                    key={i}
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.05 * i, duration: 0.3 }}
+                    whileHover={{ y: -2, color: '#ff4444' }}
+                    style={{ display: 'inline-block' }}
+                  >
+                    {letter === ' ' ? '\u00A0' : letter}
+                  </motion.span>
+                ))}
+              </motion.span>
+              <motion.span
+                className="text-sm font-normal sm:hidden"
+                style={{ fontFamily: 'Bruno Ace, cursive', letterSpacing: '0.02em' }}
+                whileHover={{ scale: 1.08 }}
+                transition={{ type: 'spring', stiffness: 400, damping: 15 }}
+              >
+                HACK HEIST
+              </motion.span>
             </Link>
+
+            {/* Spacing block */}
+            <div className="hidden lg:block w-80" />
+
+            {/* Desktop Navigation */}
+            <div className="hidden lg:flex items-center gap-0 ml-auto">
+              {navLinks.map((link, index) => (
+                <NavigationLink key={link.href} {...link} index={index} />
+              ))}
+            </div>
+
+            {/* Mobile Menu Button */}
+            <motion.button
+              aria-controls="mobile-menu"
+              aria-expanded={open}
+              onClick={() => setOpen(v => !v)}
+              whileHover={{ scale: 1.1, backgroundColor: 'rgba(255, 255, 255, 0.1)' }}
+              whileTap={{ scale: 0.95 }}
+              className="lg:hidden inline-flex items-center justify-center rounded-full p-2 text-gray-200 hover:text-white focus:outline-none focus:ring-2 focus:ring-heist-red transition-colors ml-auto"
+            >
+              <span className="sr-only">Open main menu</span>
+              <motion.svg
+                className="h-6 w-6"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                animate={{ rotate: open ? 90 : 0 }}
+                transition={{ duration: 0.3 }}
+              >
+                <motion.path
+                  d="M3 6h18"
+                  animate={{
+                    d: open ? 'M6 6L18 18' : 'M3 6h18',
+                    opacity: open ? 1 : 1
+                  }}
+                  transition={{ duration: 0.3 }}
+                />
+                <motion.path
+                  d="M3 12h18"
+                  animate={{ opacity: open ? 0 : 1 }}
+                  transition={{ duration: 0.2 }}
+                />
+                <motion.path
+                  d="M3 18h18"
+                  animate={{
+                    d: open ? 'M6 18L18 6' : 'M3 18h18',
+                    opacity: open ? 1 : 1
+                  }}
+                  transition={{ duration: 0.3 }}
+                />
+              </motion.svg>
+            </motion.button>
           </div>
-          <button 
-            aria-controls="mobile-menu" 
-            aria-expanded={open} 
-            onClick={()=>setOpen(v=>!v)} 
-            className="md:hidden inline-flex items-center justify-center rounded-full p-2 text-gray-200 hover:text-white hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-heist-red transition-all"
+        </motion.nav>
+
+        {/* Mobile Menu Panel */}
+        <motion.div
+          ref={panelRef}
+          id="mobile-menu"
+          role="dialog"
+          aria-modal="true"
+          initial={{ x: '100%', opacity: 0 }}
+          animate={{
+            x: open ? 0 : '100%',
+            opacity: open ? 1 : 0
+          }}
+          transition={{
+            type: 'spring',
+            stiffness: 300,
+            damping: 30
+          }}
+          className="lg:hidden fixed inset-y-0 right-0 w-72 sm:w-80 bg-black/95 backdrop-blur-2xl border-l border-white/10 shadow-2xl rounded-l-3xl"
+        >
+          {/* Header */}
+          <motion.div
+            className="p-4 flex items-center justify-between border-b border-white/10"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: open ? 1 : 0 }}
+            transition={{ delay: 0.1 }}
           >
-            <span className="sr-only">Open main menu</span>
-            <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
-          </button>
-        </div>
-      </nav>
-      <div ref={panelRef} id="mobile-menu" role="dialog" aria-modal="true" className={`md:hidden fixed inset-y-0 right-0 w-72 bg-black/95 backdrop-blur-2xl border-l border-white/10 shadow-2xl transform transition-transform rounded-l-3xl ${open? 'translate-x-0':'translate-x-full'}`}>
-        <div className="p-4 flex items-center justify-between border-b border-white/10">
-          <div className="flex items-center gap-2 text-white font-semibold"><MaskLogo /><span style={{ fontFamily: "'Inter', 'Roboto', sans-serif" }}>Hack Heist</span></div>
-          <button aria-label="Close menu" onClick={()=>setOpen(false)} className="p-2 rounded-full hover:bg-white/10 transition-all">
-            <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M6 18L18 6M6 6l12 12"/></svg>
-          </button>
-        </div>
-        <div className="p-4 space-y-2">
-          {[['#about','About'],['#prizes','Loot'],['#partners','Partners'],['#tracks','Tracks'],['#past','Past Heists'],['#team','Our Team'],['#join','Join Us']].map(([to,label])=> (
-            <a key={to} href={to} className="block rounded-2xl px-4 py-3 text-gray-200 hover:bg-white/10 hover:text-white transition-all">{label}</a>
-          ))}
-          <Link to="/register" className="block text-center rounded-2xl bg-heist-red text-white px-4 py-3 font-semibold hover:bg-red-700 transition-all hover:scale-105 shadow-lg">Register</Link>
-        </div>
+            <div className="flex items-center gap-2 text-white font-normal">
+              <MaskLogo className="w-7 h-7" />
+              <span style={{ fontFamily: 'Bruno Ace, cursive', letterSpacing: '0.02em' }}>HACK HEIST</span>
+            </div>
+            <motion.button
+              aria-label="Close menu"
+              onClick={() => setOpen(false)}
+              whileHover={{ scale: 1.1, rotate: 90, backgroundColor: 'rgba(255, 255, 255, 0.1)' }}
+              whileTap={{ scale: 0.9 }}
+              className="p-2 rounded-full hover:bg-white/10 transition-colors"
+            >
+              <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </motion.button>
+          </motion.div>
+
+          {/* Navigation Links */}
+          <div className="p-4 space-y-2">
+            {navLinks.map((link, index) => (
+              <MobileNavLink
+                key={link.href}
+                {...link}
+                index={index}
+                onClick={() => setOpen(false)}
+              />
+            ))}
+          </div>
+
+          {/* Decorative bottom gradient */}
+          <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-heist-red/10 to-transparent pointer-events-none" />
+        </motion.div>
+
+        {/* Backdrop overlay for mobile menu */}
+        {open && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setOpen(false)}
+            className="lg:hidden fixed inset-0 bg-black/50 backdrop-blur-sm -z-10"
+          />
+        )}
       </div>
-    </header>
+    </motion.header>
   )
 }
 

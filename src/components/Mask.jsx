@@ -165,6 +165,17 @@ export default function Mask() {
 
             <MaskGlow />
 
+            {/* Contact shadow beneath mask */}
+            <mesh position={[0, 0.8, -0.5]} rotation={[-0.2, 0, 0]}>
+              <circleGeometry args={[2.5, 32]} />
+              <meshBasicMaterial 
+                color="#000000" 
+                transparent 
+                opacity={0.3}
+                depthWrite={false}
+              />
+            </mesh>
+
             <MaskModel
               mousePosition={mousePosition}
               animationSpeed={settings.animationSpeed}
