@@ -1,0 +1,9 @@
+<svg width="1200" height="360" viewBox="0 0 1200 360" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <mask id="road-centerline">
+      <path d="M40 300 C 220 120, 380 40, 560 160 S 860 350, 1120 180" stroke="white" stroke-width="24" fill="none" stroke-linecap="round"/>
+    </mask>
+  </defs>
+  <path d="M40 300 C 220 120, 380 40, 560 160 S 860 350, 1120 180" stroke="#ffffff" stroke-width="24" stroke-linecap="round" fill="none" />
+</svg>
+
