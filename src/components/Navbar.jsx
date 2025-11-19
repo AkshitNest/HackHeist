@@ -19,7 +19,7 @@ function MaskLogo({ className = 'w-8 h-8' }) {
         transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
       />
       <motion.img
-        src="/mask-logo.PNG"
+        src="/mask-logo.png"
         alt="Hack Heist Logo"
         className="relative z-10 w-full h-full object-contain"
         animate={{
