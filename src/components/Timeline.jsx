@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { motion, useSpring } from "framer-motion";
 import clsx from "clsx";
-import "./Timeline.css";
+import "./timeline.css";
 
 const VIEWBOX = { width: 1200, height: 360 };
 
