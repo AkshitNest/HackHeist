@@ -2,25 +2,18 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Landing from './pages/Landing'
 import Register from './pages/Register'
 import BasicPage from './pages/BasicPage'
-import Preloader from './components/Preloader'
-import { useState, useEffect } from "react";
+import Preloader from './components/PreloaderGSAP'
+import { useState } from "react";
 
 export default function App() {
-
-  const [loaded, setLoaded] = useState(false);
-
-  useEffect(() => {
-    // Fake minimum wait + real page load
-    const timer = setTimeout(() => setLoaded(true), 1200);
-    return () => clearTimeout(timer);
-  }, []);
+  const [showPreloader, setShowPreloader] = useState(true);
 
   return (
     <>
-      {!loaded && <Preloader />}   {/* 👈 show preloader */}
+      {showPreloader && <Preloader onFinish={() => setShowPreloader(false)} />}   {/* 👈 show preloader */}
 
       {/* hide site until loaded */}
-      <div style={{ opacity: loaded ? 1 : 0, transition: "opacity 0.4s ease" }}>
+      <div style={{ opacity: showPreloader ? 0 : 1, transition: "opacity 0.4s ease" }}>
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Landing />} />
