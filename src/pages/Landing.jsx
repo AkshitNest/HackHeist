@@ -9,7 +9,15 @@ import AboutHeist from '../components/AboutHeist'
 
 import { motion } from 'framer-motion'
 
-function SectionShell({ id, title, subtitle, children }){
+function SectionShell({ id, title, subtitle, children, centeredHeading = false }){
+  const headingClasses = centeredHeading
+    ? 'text-3xl font-bold text-center uppercase tracking-[0.18em]'
+    : 'text-3xl font-bold'
+  const subtitleClasses = centeredHeading
+    ? 'text-gray-300 mt-2 text-center max-w-2xl mx-auto'
+    : 'text-gray-300 mt-2'
+  const headingStyle = centeredHeading ? { fontSize: 'clamp(2rem, 4vw, 3.4rem)' } : undefined
+
   return (
     <section id={id} className="container my-16">
       <motion.h2
@@ -17,7 +25,8 @@ function SectionShell({ id, title, subtitle, children }){
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.4 }}
-        className="text-3xl font-bold"
+        className={headingClasses}
+        style={headingStyle}
       >{title}</motion.h2>
       {subtitle && (
         <motion.p
@@ -25,7 +34,7 @@ function SectionShell({ id, title, subtitle, children }){
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.35, delay: 0.05 }}
-          className="text-gray-300 mt-2"
+          className={subtitleClasses}
         >{subtitle}</motion.p>
       )}
       <motion.div
@@ -445,7 +454,7 @@ export default function Landing(){
           </div>
         </motion.section>
 
-        <SectionShell id="partners" title="Partners" subtitle="Our trusted allies in this heist.">
+        <SectionShell id="partners" title="Partners" subtitle="Our trusted allies in this heist." centeredHeading>
           <div className="relative">
             {/* Revealing Soon Text */}
             <motion.div
@@ -595,7 +604,7 @@ export default function Landing(){
           </div>
         </SectionShell>
 
-        <SectionShell id="tracks" title="Our Tracks" subtitle="Choose your path in this heist.">
+        <SectionShell id="tracks" title="Our Tracks" subtitle="Choose your path in this heist." centeredHeading>
           <div className="relative">
             {/* Animated Track Cards */}
             <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
@@ -702,13 +711,13 @@ export default function Landing(){
           </div>
         </SectionShell>
 
-        <SectionShell id="past" title="Our Past Heists" subtitle="Add gallery or highlights.">
+        <SectionShell id="past" title="Our Past Heists" subtitle="Add gallery or highlights." centeredHeading>
           <div className="grid md:grid-cols-3 gap-4">
             {Array.from({length:3}).map((_,i)=>(<div key={i} className="h-48 rounded-2xl bg-white/5 border border-white/10" />))}
           </div>
         </SectionShell>
 
-        <SectionShell id="team" title="Our Team" subtitle="Introduce your organizers.">
+        <SectionShell id="team" title="Our Team" subtitle="Introduce your organizers." centeredHeading>
           <div className="grid md:grid-cols-4 gap-6">
             {Array.from({length:8}).map((_,i)=>(
               <div key={i} className="text-center">
