@@ -94,12 +94,6 @@ export default function Landing(){
           </div>
         </SectionShell>
 
-        <SectionShell id="join" title="Join Us" subtitle="Add volunteer/mentor/sponsor CTA.">
-          <div className="rounded-2xl bg-muted-gray/80 border border-white/10 p-6 flex items-center justify-between">
-            <div className="text-gray-300">Tell people how to get involved.</div>
-            <a href="#" className="rounded-full bg-heist-red px-5 py-2 font-semibold">Get in touch</a>
-          </div>
-        </SectionShell>
         <section id="timeline">
           <Timeline />
         </section>

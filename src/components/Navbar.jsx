@@ -42,8 +42,7 @@ const navLinks = [
   { href: '#partners', label: 'Partners' },
   { href: '#tracks', label: 'Tracks' },
   { href: '#past', label: 'Past Heists' },
-  { href: '#team', label: 'Our Team' },
-  { href: '#join', label: 'Join Us' }
+  { href: '#team', label: 'Our Team' }
 ]
 
 function NavigationLink({ href, label, index }) {
