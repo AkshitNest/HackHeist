@@ -100,7 +100,9 @@ export default function Landing(){
             <a href="#" className="rounded-full bg-heist-red px-5 py-2 font-semibold">Get in touch</a>
           </div>
         </SectionShell>
-        <Timeline />
+        <section id="timeline">
+          <Timeline />
+        </section>
         <FAQ />
       </main>
       <Footer />

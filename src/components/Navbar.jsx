@@ -37,6 +37,7 @@ function MaskLogo({ className = 'w-8 h-8' }) {
 
 const navLinks = [
   { href: '#about', label: 'About' },
+  { href: '#timeline', label: 'Timeline' },
   { href: '#prizes', label: 'Loot' },
   { href: '#partners', label: 'Partners' },
   { href: '#tracks', label: 'Tracks' },
