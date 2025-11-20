@@ -9,6 +9,74 @@ import AboutHeist from '../components/AboutHeist'
 
 import { motion } from 'framer-motion'
 
+const gallerySources = [
+  new URL('../assets/gallery/WhatsApp Image 2025-11-20 at 9.40.47 PM.jpeg', import.meta.url).href,
+  new URL('../assets/gallery/WhatsApp Image 2025-11-20 at 9.40.47 PM (1).jpeg', import.meta.url).href,
+  new URL('../assets/gallery/WhatsApp Image 2025-11-20 at 9.40.48 PM.jpeg', import.meta.url).href,
+  new URL('../assets/gallery/WhatsApp Image 2025-11-20 at 9.40.48 PM (1).jpeg', import.meta.url).href,
+  new URL('../assets/gallery/WhatsApp Image 2025-11-20 at 9.40.48 PM (2).jpeg', import.meta.url).href,
+  new URL('../assets/gallery/WhatsApp Image 2025-11-20 at 9.40.49 PM.jpeg', import.meta.url).href,
+  new URL('../assets/gallery/WhatsApp Image 2025-11-20 at 9.40.49 PM (1).jpeg', import.meta.url).href,
+  new URL('../assets/gallery/WhatsApp Image 2025-11-20 at 9.41.14 PM.jpeg', import.meta.url).href,
+  new URL('../assets/gallery/WhatsApp Image 2025-11-20 at 9.41.15 PM.jpeg', import.meta.url).href,
+  new URL('../assets/gallery/WhatsApp Image 2025-11-20 at 9.41.15 PM (2).jpeg', import.meta.url).href,
+]
+
+const pastGallery = [
+  {
+    title: 'Operation Check-in',
+    caption: 'Registration desk crew keeping the queue efficient.',
+    src: gallerySources[0],
+  },
+  {
+    title: 'Mentor Circuit',
+    caption: 'Product mentors giving teams live feedback.',
+    src: gallerySources[1],
+  },
+  {
+    title: 'Keynote Blast',
+    caption: 'Opening talk that set the pulse for 36 hours.',
+    src: gallerySources[2],
+  },
+  {
+    title: 'Winners Circle',
+    caption: 'Hardware + swag handoff to the winning squad.',
+    src: gallerySources[3],
+  },
+  {
+    title: 'Squad Rollout',
+    caption: 'Teams heading into the arena with MIET kits.',
+    src: gallerySources[4],
+  },
+  {
+    title: 'Product Demo Line',
+    caption: 'Builders showing their dashboards on-device.',
+    src: gallerySources[5],
+  },
+  {
+    title: 'Crew Briefing',
+    caption: 'Organizing team synced before the rush.',
+    src: gallerySources[6],
+  },
+  {
+    title: 'Partners Roll Call',
+    caption: 'Community partners and crew outside the arena.',
+    src: gallerySources[9],
+  },
+  {
+    title: 'Closing Felicitation',
+    caption: 'Judges awarding the precision trophy.',
+    src: gallerySources[7],
+  },
+  {
+    title: 'Ritual Kickoff',
+    caption: 'Tradition + tech to open the build floor.',
+    src: gallerySources[8],
+  },
+]
+
+const gallerySpan = ['md:col-span-2 md:row-span-2', 'md:row-span-1', 'md:row-span-2', 'md:row-span-1', 'md:row-span-2', '', 'md:row-span-2', 'md:row-span-2', 'md:col-span-2', 'md:row-span-1']
+
 function SectionShell({ id, title, subtitle, children, centeredHeading = false }){
   const headingClasses = centeredHeading
     ? 'text-3xl font-bold text-center uppercase tracking-[0.18em]'
@@ -592,15 +660,15 @@ export default function Landing(){
                         }}
                       />
                     </motion.div>
-                  </div>
+              </div>
 
                   {/* Hover Glow */}
                   <motion.div
                     className="absolute inset-0 rounded-2xl bg-heist-red/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                   />
                 </motion.div>
-              ))}
-            </div>
+            ))}
+          </div>
           </div>
         </SectionShell>
 
@@ -711,9 +779,43 @@ export default function Landing(){
           </div>
         </SectionShell>
 
-        <SectionShell id="past" title="Our Past Heists" subtitle="Add gallery or highlights." centeredHeading>
-          <div className="grid md:grid-cols-3 gap-4">
-            {Array.from({length:3}).map((_,i)=>(<div key={i} className="h-48 rounded-2xl bg-white/5 border border-white/10" />))}
+        <SectionShell id="past" title="Our Past Heists" subtitle="Gallery playback from previous ops." centeredHeading>
+          <div className="relative max-w-6xl mx-auto">
+            <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-heist-red/10 via-transparent to-heist-red/10 blur-3xl pointer-events-none" />
+            <div className="relative grid gap-4 md:grid-cols-3 auto-rows-[200px]">
+              {pastGallery.map((item, idx) => (
+                <motion.article
+                  key={item.title}
+                  initial={{ opacity: 0, y: 30, scale: 0.95 }}
+                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                  viewport={{ once: true, margin: '-50px' }}
+                  transition={{ duration: 0.4, delay: idx * 0.05 }}
+                  className={`group relative overflow-hidden rounded-3xl border border-white/10 bg-black/40 backdrop-blur-xl shadow-[0_25px_50px_rgba(0,0,0,0.35)] ${gallerySpan[idx] ?? ''}`}
+                >
+                  <img
+                    src={item.src}
+                    alt={item.title}
+                    loading="lazy"
+                    className="h-full w-full object-cover transition duration-700 group-hover:scale-105 group-hover:rotate-1"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent transition-opacity duration-500 group-hover:opacity-70" />
+                  <div className="absolute inset-x-0 bottom-0 p-5 text-white">
+                    <motion.h3
+                      className="text-lg font-semibold tracking-wide"
+                      style={{ fontFamily: 'Oxanium, sans-serif' }}
+                      whileHover={{ x: 4 }}
+                    >
+                      {item.title}
+                    </motion.h3>
+                  </div>
+                  <motion.div
+                    className="absolute inset-0 border-2 border-transparent rounded-3xl pointer-events-none"
+                    whileHover={{ borderColor: 'rgba(255,77,79,0.55)' }}
+                    transition={{ duration: 0.2 }}
+                  />
+                </motion.article>
+              ))}
+            </div>
           </div>
         </SectionShell>
 
@@ -729,7 +831,7 @@ export default function Landing(){
         </SectionShell>
 
         <section id="timeline">
-          <Timeline />
+        <Timeline />
         </section>
         <FAQ />
       </main>
