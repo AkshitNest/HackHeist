@@ -24,52 +24,52 @@ const gallerySources = [
 
 const pastGallery = [
   {
-    title: 'Operation Check-in',
+    
     caption: 'Registration desk crew keeping the queue efficient.',
     src: gallerySources[0],
   },
   {
-    title: 'Mentor Circuit',
+   
     caption: 'Product mentors giving teams live feedback.',
     src: gallerySources[1],
   },
   {
-    title: 'Keynote Blast',
+    
     caption: 'Opening talk that set the pulse for 36 hours.',
     src: gallerySources[2],
   },
   {
-    title: 'Winners Circle',
+    
     caption: 'Hardware + swag handoff to the winning squad.',
     src: gallerySources[3],
   },
   {
-    title: 'Squad Rollout',
+    
     caption: 'Teams heading into the arena with MIET kits.',
     src: gallerySources[4],
   },
   {
-    title: 'Product Demo Line',
+    
     caption: 'Builders showing their dashboards on-device.',
     src: gallerySources[5],
   },
   {
-    title: 'Crew Briefing',
+    
     caption: 'Organizing team synced before the rush.',
     src: gallerySources[6],
   },
   {
-    title: 'Partners Roll Call',
+    
     caption: 'Community partners and crew outside the arena.',
     src: gallerySources[9],
   },
   {
-    title: 'Closing Felicitation',
+    
     caption: 'Judges awarding the precision trophy.',
     src: gallerySources[7],
   },
   {
-    title: 'Ritual Kickoff',
+    
     caption: 'Tradition + tech to open the build floor.',
     src: gallerySources[8],
   },
@@ -819,7 +819,7 @@ export default function Landing(){
           </div>
         </SectionShell>
 
-        <SectionShell id="team" title="Our Team" subtitle="Introduce your organizers." centeredHeading>
+        <SectionShell id="team" title="Our Team" centeredHeading>
           <div className="grid md:grid-cols-4 gap-6">
             {Array.from({length:8}).map((_,i)=>(
               <div key={i} className="text-center">
