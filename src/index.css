@@ -11,18 +11,19 @@
     --card: #1f1f1f;
   }
   html {
-    font-family: 'Inter', 'Roboto', system-ui, -apple-system, sans-serif;
+    font-family: 'Oxanium', sans-serif;
     background-color: var(--bg);
     color: white;
   }
   body {
     @apply min-h-screen antialiased;
     background: radial-gradient(1200px 600px at 50% -20%, rgba(179,0,0,0.12), transparent 60%), #000;
+    font-family: 'Oxanium', sans-serif;
   }
   
-  /* Google-style fonts - Inter for display, Roboto for body */
+  /* Oxanium font for all headings */
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Inter', 'Roboto', sans-serif;
+    font-family: 'Oxanium', sans-serif;
     font-weight: 800;
     letter-spacing: -0.03em;
   }

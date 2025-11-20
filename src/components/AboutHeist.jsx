@@ -134,7 +134,7 @@ export default function AboutHeist() {
                 className="text-3xl font-semibold text-[#EAEAEA] md:text-4xl"
                 style={{ textShadow: '0 8px 30px rgba(255,77,79,0.08)' }}
               >
-                About Hack Heist
+                ABOUT HACK HEIST
               </h2>
               <span className="mt-3 block h-[2px] w-20 rounded-full bg-[#FF4D4F]" />
             </div>

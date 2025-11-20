@@ -165,7 +165,7 @@ export default function Timeline({
     <section className="timeline-section" aria-label="Heist timeline">
       <div className="timeline-heading-group">
         <p className="timeline-heading-group__eyebrow"></p>
-        <h2>Operation Timeline</h2>
+        <h2>OPERATION TIMELINE</h2>
         <p>Hover the winding road to trace the pulse of HackHeist.</p>
       </div>
 
