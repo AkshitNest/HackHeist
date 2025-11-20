@@ -65,9 +65,153 @@ export default function Landing(){
           </div>
         </SectionShell>
 
-        <SectionShell id="partners" title="Partners" subtitle="Add sponsor logos and links.">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {Array.from({length:8}).map((_,i)=>(<div key={i} className="h-24 rounded-2xl bg-white/5 border border-white/10" />))}
+        <SectionShell id="partners" title="Partners" subtitle="Our trusted allies in this heist.">
+          <div className="relative">
+            {/* Revealing Soon Text */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="text-center mb-12"
+            >
+              <motion.div
+                className="inline-flex items-center gap-3 px-6 py-3 rounded-full border border-heist-red/30 bg-gradient-to-r from-heist-red/10 via-heist-red/5 to-heist-red/10 backdrop-blur-sm"
+                animate={{
+                  boxShadow: [
+                    '0 0 20px rgba(179, 0, 0, 0.2)',
+                    '0 0 30px rgba(179, 0, 0, 0.4)',
+                    '0 0 20px rgba(179, 0, 0, 0.2)',
+                  ],
+                }}
+                transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+              >
+                <motion.span
+                  className="text-heist-red text-sm md:text-base font-semibold uppercase tracking-wider"
+                  animate={{ opacity: [0.6, 1, 0.6] }}
+                  transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
+                >
+                  Revealing Very Soon
+                </motion.span>
+                <motion.div
+                  className="flex gap-1"
+                  animate={{ opacity: [0.3, 1, 0.3] }}
+                  transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-heist-red" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-heist-red" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-heist-red" />
+                </motion.div>
+              </motion.div>
+            </motion.div>
+
+            {/* Animated Placeholder Cards */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+              {Array.from({ length: 8 }).map((_, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, scale: 0.8, y: 20 }}
+                  whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ 
+                    duration: 0.5, 
+                    delay: i * 0.1,
+                    ease: 'easeOut'
+                  }}
+                  whileHover={{ 
+                    scale: 1.05,
+                    y: -5,
+                    transition: { duration: 0.3 }
+                  }}
+                  className="group relative h-32 rounded-2xl overflow-hidden"
+                >
+                  {/* Animated Background */}
+                  <motion.div
+                    className="absolute inset-0 bg-gradient-to-br from-white/5 via-white/3 to-transparent border border-white/10 rounded-2xl"
+                    animate={{
+                      background: [
+                        'linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.03) 50%, transparent 100%)',
+                        'linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.05) 50%, transparent 100%)',
+                        'linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.03) 50%, transparent 100%)',
+                      ],
+                    }}
+                    transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut', delay: i * 0.2 }}
+                  />
+
+                  {/* Glowing Border Effect */}
+                  <motion.div
+                    className="absolute inset-0 rounded-2xl border border-heist-red/20"
+                    animate={{
+                      borderColor: [
+                        'rgba(179, 0, 0, 0.2)',
+                        'rgba(179, 0, 0, 0.4)',
+                        'rgba(179, 0, 0, 0.2)',
+                      ],
+                    }}
+                    transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut', delay: i * 0.15 }}
+                  />
+
+                  {/* Pulsing Glow */}
+                  <motion.div
+                    className="absolute inset-0 rounded-2xl bg-heist-red/5 blur-xl"
+                    animate={{
+                      opacity: [0.2, 0.4, 0.2],
+                      scale: [1, 1.1, 1],
+                    }}
+                    transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut', delay: i * 0.1 }}
+                  />
+
+                  {/* Shimmer Effect */}
+                  <motion.div
+                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12"
+                    animate={{
+                      x: ['-100%', '200%'],
+                    }}
+                    transition={{
+                      duration: 3,
+                      repeat: Infinity,
+                      ease: 'linear',
+                      delay: i * 0.3,
+                    }}
+                  />
+
+                  {/* Center Icon/Placeholder */}
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <motion.div
+                      className="w-12 h-12 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center"
+                      animate={{
+                        rotate: [0, 5, -5, 0],
+                      }}
+                      transition={{
+                        duration: 4,
+                        repeat: Infinity,
+                        ease: 'easeInOut',
+                        delay: i * 0.2,
+                      }}
+                    >
+                      <motion.div
+                        className="w-6 h-6 rounded bg-heist-red/30"
+                        animate={{
+                          scale: [1, 1.2, 1],
+                          opacity: [0.5, 0.8, 0.5],
+                        }}
+                        transition={{
+                          duration: 2,
+                          repeat: Infinity,
+                          ease: 'easeInOut',
+                          delay: i * 0.15,
+                        }}
+                      />
+                    </motion.div>
+                  </div>
+
+                  {/* Hover Glow */}
+                  <motion.div
+                    className="absolute inset-0 rounded-2xl bg-heist-red/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  />
+                </motion.div>
+              ))}
+            </div>
           </div>
         </SectionShell>
 
