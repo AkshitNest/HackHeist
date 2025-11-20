@@ -24,18 +24,6 @@ const faqs = [
   },
 ]
 
-const cardVariants = {
-  closed: {
-    borderColor: 'rgba(255,255,255,0.08)',
-    boxShadow: '0 0 0 rgba(255,0,0,0)',
-  },
-  open: {
-    borderColor: 'rgba(255,77,79,0.9)',
-    boxShadow: '0 0 24px rgba(255,0,0,0.55)',
-    transition: { duration: 0.3 },
-  },
-}
-
 export default function FAQ() {
   const [openIndex, setOpenIndex] = useState(null)
 
@@ -83,11 +71,11 @@ export default function FAQ() {
           {faqs.map((item, idx) => {
             const open = openIndex === idx
             return (
-              <motion.div
+              <div
                 key={item.q}
-                variants={cardVariants}
-                animate={open ? 'open' : 'closed'}
-                className="relative rounded-2xl bg-white/5 border overflow-hidden backdrop-blur-xl group"
+                className={`relative rounded-2xl bg-white/5 border overflow-hidden group transition-colors duration-150 ease-out ${
+                  open ? 'border-heist-red/70 shadow-[0_0_18px_rgba(255,0,0,0.4)]' : 'border-white/10'
+                }`}
               >
                 {/* Glass highlight */}
                 <div className="absolute inset-0 bg-gradient-to-r from-white/5 via-transparent to-white/5 opacity-40 pointer-events-none" />
@@ -142,28 +130,19 @@ export default function FAQ() {
                   {open && (
                     <motion.div
                       key="content"
-                      initial="collapsed"
-                      animate="open"
-                      exit="collapsed"
-                      variants={{
-                        open: { height: 'auto', opacity: 1 },
-                        collapsed: { height: 0, opacity: 0 },
-                      }}
-                      transition={{ duration: 0.3, ease: 'easeOut' }}
-                      className="relative z-10 px-5 md:px-6 pb-4 md:pb-5 overflow-hidden text-sm text-gray-300"
+                      initial={{ opacity: 0, y: -4 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -4 }}
+                      transition={{ duration: 0.18, ease: 'easeOut' }}
+                      className="relative z-10 px-5 md:px-6 pb-4 md:pb-5 text-sm text-gray-300"
                     >
-                      {/* Laser scan line */}
-                      <motion.div
-                        className="mb-3 h-[2px] w-full bg-gradient-to-r from-transparent via-heist-red to-transparent"
-                        initial={{ scaleX: 0, originX: 0 }}
-                        animate={{ scaleX: 1 }}
-                        transition={{ duration: 0.4, ease: 'easeOut' }}
-                      />
+                      {/* Static laser bar for subtle effect */}
+                      <div className="mb-3 h-[2px] w-full bg-gradient-to-r from-transparent via-heist-red to-transparent opacity-80" />
                       <p className="whitespace-pre-line leading-relaxed">{item.a}</p>
                     </motion.div>
                   )}
                 </AnimatePresence>
-              </motion.div>
+              </div>
             )
           })}
         </div>
