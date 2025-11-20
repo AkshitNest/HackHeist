@@ -29,10 +29,10 @@ const socialLinks = [
 ]
 
 const quickLinks = [
-  { href: '#', label: 'Home' },
+  { href: '/', label: 'Home' },
   { href: '#about', label: 'About' },
   { href: '#past', label: 'Past Events' },
-  { href: '#schedule', label: 'Schedule' },
+  { href: '#timeline', label: 'Schedule' },
   { href: '#prizes', label: 'Prizes' },
   { href: '#partners', label: 'Sponsors' },
   { href: '#faq', label: 'FAQs' },
