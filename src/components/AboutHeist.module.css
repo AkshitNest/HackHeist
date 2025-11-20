@@ -1,0 +1,268 @@
+.missionSection {
+  background-color: #0b0a0b;
+}
+
+.radialGlow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 30% 20%, #2a0c0c 0%, #120708 45%, #000000 100%);
+  opacity: 0.96;
+  pointer-events: none;
+}
+
+.gridOverlay {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 120px 120px;
+  mix-blend-mode: screen;
+  opacity: 0.18;
+  pointer-events: none;
+}
+
+.missionCard {
+  position: relative;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+  transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+}
+
+.missionCard::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border-left: 2px solid rgba(255, 77, 79, 0.7);
+  opacity: 0;
+  transform: translateX(-8px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+  pointer-events: none;
+}
+
+.missionCard:hover,
+.missionCard:focus-within {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.65);
+}
+
+.missionCard:hover::before,
+.missionCard:focus-within::before {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.blueprintShell {
+  position: relative;
+  border-radius: 1.25rem;
+  background: rgba(10, 18, 30, 0.7);
+  border: 1px solid rgba(167, 209, 255, 0.2);
+  overflow: hidden;
+  backdrop-filter: blur(6px);
+  min-height: 320px;
+  box-shadow: 0 20px 55px rgba(0, 0, 0, 0.55);
+}
+
+.blueprintSvg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.gridAnimate {
+  animation: gridPulse 12s linear infinite;
+}
+
+.ringDash {
+  stroke-dasharray: 6;
+  animation: dashFlow 14s linear infinite;
+}
+
+.laser {
+  position: absolute;
+  top: -20%;
+  bottom: -20%;
+  left: 0;
+  width: 3px;
+  background: linear-gradient(180deg, rgba(255, 77, 79, 0) 0%, rgba(255, 77, 79, 0.85) 40%, rgba(255, 77, 79, 0.9) 60%, rgba(255, 77, 79, 0) 100%);
+  box-shadow: 0 0 18px rgba(255, 64, 64, 0.8);
+  animation: laserSweep 10s cubic-bezier(.22,.9,.3,1) infinite;
+  pointer-events: none;
+}
+
+.laser::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  filter: blur(12px);
+  background: inherit;
+  opacity: 0.45;
+}
+
+.laserFast {
+  animation-duration: 6s;
+}
+
+.blueprintNode {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: transparent;
+  outline: none;
+  cursor: pointer;
+  transform: translate(-50%, -50%);
+  animation: nodePulse 2.4s ease-in-out infinite;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.blueprintNode::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 1.5px solid rgba(167, 209, 255, 0.6);
+  background: radial-gradient(circle, rgba(13, 41, 68, 0.95) 0%, rgba(5, 18, 35, 0.85) 100%);
+  box-shadow: 
+    0 0 8px rgba(167, 209, 255, 0.3),
+    inset 0 0 8px rgba(167, 209, 255, 0.1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.blueprintNode::after {
+  content: '';
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #FF4D4F 0%, rgba(255, 77, 79, 0.4) 100%);
+  box-shadow: 0 0 6px rgba(255, 77, 79, 0.8);
+  z-index: 1;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.blueprintNode span {
+  position: absolute;
+  bottom: calc(100% + 12px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, rgba(11, 10, 11, 0.98) 0%, rgba(20, 15, 20, 0.98) 100%);
+  color: #eaeaea;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 77, 79, 0.3);
+  box-shadow: 
+    0 4px 12px rgba(0, 0, 0, 0.4),
+    0 0 8px rgba(255, 77, 79, 0.15);
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 10;
+  backdrop-filter: blur(8px);
+}
+
+.blueprintNode span::before {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: rgba(11, 10, 11, 0.98);
+  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.2));
+}
+
+.blueprintNode:hover,
+.blueprintNode:focus-visible {
+  transform: translate(-50%, -50%) scale(1.15);
+}
+
+.blueprintNode:hover::before,
+.blueprintNode:focus-visible::before {
+  border-color: rgba(255, 77, 79, 0.8);
+  box-shadow: 
+    0 0 16px rgba(167, 209, 255, 0.5),
+    0 0 24px rgba(255, 77, 79, 0.3),
+    inset 0 0 12px rgba(167, 209, 255, 0.15);
+  background: radial-gradient(circle, rgba(20, 50, 85, 0.95) 0%, rgba(10, 25, 45, 0.9) 100%);
+}
+
+.blueprintNode:hover::after,
+.blueprintNode:focus-visible::after {
+  width: 8px;
+  height: 8px;
+  box-shadow: 0 0 12px rgba(255, 77, 79, 1);
+  background: radial-gradient(circle, #FF4D4F 0%, rgba(255, 77, 79, 0.6) 100%);
+}
+
+.blueprintNode:hover span,
+.blueprintNode:focus-visible span {
+  opacity: 1;
+  transform: translateX(-50%) translateY(-2px);
+}
+
+.blueprintNode:focus-visible::before {
+  outline: 2px solid rgba(255, 77, 79, 0.6);
+  outline-offset: 2px;
+}
+
+.blueprintNode:nth-child(odd) {
+  animation-delay: 0.4s;
+}
+
+.blueprintNode:nth-child(even) {
+  animation-delay: 0.8s;
+}
+
+@keyframes laserSweep {
+  0% { transform: translateX(0); opacity: 0; }
+  5% { opacity: 1; }
+  70% { transform: translateX(100%); opacity: 1; }
+  85% { opacity: 0.4; }
+  100% { transform: translateX(100%); opacity: 0; }
+}
+
+@keyframes nodePulse {
+  0%, 100% { 
+    transform: translate(-50%, -50%) scale(1);
+    filter: brightness(1);
+  }
+  50% { 
+    transform: translate(-50%, -50%) scale(1.08);
+    filter: brightness(1.2);
+  }
+}
+
+@keyframes gridPulse {
+  0% { opacity: 0.1; }
+  50% { opacity: 0.25; }
+  100% { opacity: 0.1; }
+}
+
+@keyframes dashFlow {
+  0% { stroke-dashoffset: 0; }
+  100% { stroke-dashoffset: 160; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gridAnimate,
+  .ringDash,
+  .laser,
+  .blueprintNode {
+    animation: none !important;
+  }
+
+  .laser {
+    display: none;
+  }
+}
+

@@ -5,6 +5,7 @@ import FAQ from '../components/FAQ'
 import Footer from '../components/Footer'
 import Mask from '../components/Mask'
 import Countdown from '../components/Countdown'
+import AboutHeist from '../components/AboutHeist'
 
 import { motion } from 'framer-motion'
 
@@ -51,12 +52,7 @@ export default function Landing(){
           <Countdown target={new Date('2025-03-29T09:00:00+05:30').getTime()} />
         </section>
 
-        <SectionShell id="about" title="About" subtitle="Add your organization blurb here." >
-          <div className="grid md:grid-cols-2 gap-6">
-            <div className="rounded-2xl bg-muted-gray/80 border border-white/10 h-56" />
-            <div className="rounded-2xl bg-muted-gray/80 border border-white/10 h-56" />
-          </div>
-        </SectionShell>
+        <AboutHeist />
 
         <SectionShell id="prizes" title="The Loot" subtitle="Describe your prize pool and goodies.">
           <div className="grid md:grid-cols-3 gap-6">

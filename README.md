@@ -38,5 +38,12 @@ Includes a basic Register form test with React Testing Library and Vitest.
 ### Theming
 Edit `src/theme.json` to swap palette. Tailwind utilities leverage the tokens; update Tailwind if you add new tokens.
 
+### Mission brief panel
+- Component lives at `src/components/AboutHeist.jsx` with supporting styles in `src/components/AboutHeist.module.css` and helper `src/hooks/useParallax.js`. Import it anywhere via `import AboutHeist from './components/AboutHeist'`.
+- The inline SVG blueprint source is stored at `src/assets/svg/vault-blueprint.svg`. Update that file then restart Vite (or re-run `npm run dev`) to pick up the asset.
+- Laser/scan timing comes from the `laserSweep` keyframes in `AboutHeist.module.css`. Adjust the `animation-duration` on `.laser` and `.laserFast` to speed up/slow down the sweep or edit the keyframes for longer delays.
+- Animations automatically respect `prefers-reduced-motion`. To force-disable them regardless of OS settings, change the `prefersReducedMotion` constant in `AboutHeist.jsx` to `true` or guard the animated branches with your own flag.
+- Tooltips, metadata chips, and parallax intensity are easy to tweak: edit `metadata`, `blueprintNodes`, or the `maxOffset` passed to `useParallax` within `AboutHeist.jsx`.
+
 ### Deploy
 See `DEPLOY.md` for one‑click Vercel steps.
