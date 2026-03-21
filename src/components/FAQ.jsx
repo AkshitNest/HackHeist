@@ -25,6 +25,14 @@ const faqs = [
     q: "What's the judging criteria?",
     a: "Innovation, Impact, Technical Strength, UI/UX, and Presentation.",
   },
+  {
+    q: "Will accommodation be provided?",
+    a: "Yes! Accommodation will be provided for the 28th and 29th of March. Make sure to carry any personal essentials you may need for the overnight stay.",
+  },
+  {
+    q: "Will food be provided?",
+    a: "Absolutely! We've got you covered with all meals : breakfast, lunch, and dinner throughout the event. No need to worry about food, just focus on building!",
+  },
 ];
 
 function Cursor() {
