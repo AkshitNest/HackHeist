@@ -2,9 +2,10 @@
   "buildCommand": "vp build",
   "outputDirectory": "dist",
   "framework": null,
+  "installCommand": "vp install",
   "rewrites": [
     {
-      "source": "/((?!assets|videos|models|textures|logo|music|.*\\..*).*)",
+      "source": "/((?!assets|videos|logo|music|_redirects|robots.txt|sitemap.xml|favicon.png|site.webmanifest).*)",
       "destination": "/index.html"
     }
   ],
@@ -41,9 +42,7 @@
     },
     {
       "source": "/videos/(.*)",
-      "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=86400, stale-while-revalidate=604800" }
-      ]
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=86400, stale-while-revalidate=604800" }]
     },
     {
       "source": "/(.*)\\.woff2",
@@ -51,21 +50,15 @@
     },
     {
       "source": "/robots.txt",
-      "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=86400, stale-while-revalidate=604800" }
-      ]
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=86400, stale-while-revalidate=604800" }]
     },
     {
       "source": "/sitemap.xml",
-      "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=86400, stale-while-revalidate=604800" }
-      ]
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=86400, stale-while-revalidate=604800" }]
     },
     {
       "source": "/site.webmanifest",
-      "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=86400, stale-while-revalidate=604800" }
-      ]
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=86400, stale-while-revalidate=604800" }]
     }
   ]
 }
